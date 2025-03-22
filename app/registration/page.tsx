@@ -41,8 +41,7 @@ export default function Registration() {
 
     const { email, phone } = formData;
 
-    // ✅ ตรวจสอบอีเมลและเบอร์โทร
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('❌ กรุณากรอกอีเมลให้ถูกต้อง');
       return;
     }
@@ -79,40 +78,28 @@ export default function Registration() {
         <form onSubmit={handleSubmit} className="bg-gray-800 p-6 rounded-lg shadow-lg w-96">
           {error && <p className="text-red-400 mb-3">{error}</p>}
 
-          {[
-            { name: 'username', placeholder: 'ชื่อผู้ใช้', type: 'text', autoComplete: 'username' },
-            { name: 'email', placeholder: 'อีเมล', type: 'email', autoComplete: 'email' },
-            { name: 'password', placeholder: 'รหัสผ่าน', type: 'password', autoComplete: 'new-password' },
-            { name: 'phone', placeholder: 'เบอร์โทรศัพท์', type: 'tel', autoComplete: 'tel' },
-          ].map(({ name, placeholder, type, autoComplete }) => (
+          {[ 'username', 'email', 'password', 'phone' ].map((name) => (
             <input
               key={name}
-              type={type}
+              type={name === 'password' ? 'password' : 'text'}
               name={name}
-              placeholder={placeholder}
-              value={typeof formData[name] === 'object' ? JSON.stringify(formData[name]) : formData[name] || ''}
-
+              placeholder={name}
+              value={String(formData[name as keyof typeof formData] || '')}
               onChange={(e) => updateNestedValue(name, e.target.value)}
               className="w-full p-2 mb-3 rounded bg-gray-700 text-white"
-              autoComplete={autoComplete}
+              autoComplete={name}
             />
           ))}
 
           <h2 className="text-green-400 font-bold mt-3 mb-2">ที่อยู่</h2>
-          {[
-            { name: 'address.houseNumber', placeholder: 'เลขที่บ้าน' },
-            { name: 'address.city', placeholder: 'เมือง' },
-            { name: 'address.province', placeholder: 'จังหวัด' },
-            { name: 'address.country', placeholder: 'ประเทศ' },
-            { name: 'address.postalCode', placeholder: 'รหัสไปรษณีย์' },
-          ].map(({ name, placeholder }) => (
+          {[ 'houseNumber', 'city', 'province', 'country', 'postalCode' ].map((field) => (
             <input
-              key={name}
+              key={field}
               type="text"
-              name={name}
-              placeholder={placeholder}
-              value={formData.address[name.split('.')[1] as keyof typeof formData.address]}
-              onChange={(e) => updateNestedValue(name, e.target.value)}
+              name={`address.${field}`}
+              placeholder={field}
+              value={formData.address[field as keyof typeof formData['address']] || ''}
+              onChange={(e) => updateNestedValue(`address.${field}`, e.target.value)}
               className="w-full p-2 mb-3 rounded bg-gray-700 text-white"
             />
           ))}
@@ -120,7 +107,6 @@ export default function Registration() {
           <input
             type="date"
             name="birthdate"
-            placeholder="วันเกิด"
             value={formData.birthdate}
             onChange={(e) => updateNestedValue('birthdate', e.target.value)}
             className="w-full p-2 mb-3 rounded bg-gray-700 text-white"
@@ -129,8 +115,7 @@ export default function Registration() {
 
           <button 
             type="submit" 
-            className="w-full bg-green-500 hover:bg-green-600 text-white p-2 rounded 
-                       hover:scale-105 transition-transform"
+            className="w-full bg-green-500 hover:bg-green-600 text-white p-2 rounded hover:scale-105 transition-transform"
           >
             สมัครสมาชิก
           </button>
