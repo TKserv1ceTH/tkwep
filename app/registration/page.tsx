@@ -90,7 +90,8 @@ export default function Registration() {
               type={type}
               name={name}
               placeholder={placeholder}
-              value={typeof formData[name] === 'object' ? '' : formData[name as keyof typeof formData]}
+              value={typeof formData[name] === 'object' ? JSON.stringify(formData[name]) : formData[name] || ''}
+
               onChange={(e) => updateNestedValue(name, e.target.value)}
               className="w-full p-2 mb-3 rounded bg-gray-700 text-white"
               autoComplete={autoComplete}
