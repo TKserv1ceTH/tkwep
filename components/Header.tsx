@@ -23,10 +23,12 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-gradient-to-r from-green-700 to-green-500 text-white p-5 flex justify-between items-center shadow-lg">
-      <Link href="/">
-        <Image src="/logo.png" alt="โลโก้" width={50} height={50} className="cursor-pointer" />
-      </Link>
+    <header className="bg-gradient-to-r from-green-700 to-green-500 text-white p-5 flex items-center shadow-lg">
+      <div className="flex-grow">
+        <Link href="/">
+          <Image src="/logo.png" alt="โลโก้" width={199} height={20} className="cursor-pointer" />
+        </Link>
+      </div>
 
       <button 
         className="lg:hidden p-2 text-white" 
@@ -38,7 +40,7 @@ export default function Header() {
       <nav 
         className={`${
           menuOpen ? 'flex' : 'hidden'
-        } flex-col lg:flex lg:flex-row gap-3 absolute lg:static top-16 left-0 w-full bg-green-700 lg:bg-transparent p-5 lg:p-0 z-50`}
+        } flex-col lg:flex lg:flex-row gap-3 lg:justify-end lg:flex-grow p-5 lg:p-0`}
       >
         <Link 
           href="/" 
