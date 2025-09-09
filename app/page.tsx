@@ -1,66 +1,51 @@
-'use client';
+'use client'
+import React from 'react'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { Wrench, Download, ShieldCheck, Headphones, Cpu, Zap } from 'lucide-react'
+import { Badge, Section, GhostButton, PrimaryButton } from './components/ui'
 
-import Image from 'next/image';
-import Link from 'next/link';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen text-center bg-gray-900 text-gray-200 font-roboto">
-      <Header />
-
-      {/* Main Content */}
-      <main className="flex flex-wrap justify-center gap-8 my-20 flex-grow animate-fadeIn">
-        {sections.map((section, idx) => (
-          <div 
-            key={idx} 
-            className="bg-gray-800 p-5 rounded-lg shadow-lg w-80 text-center transition-all 
-                      hover:shadow-2xl hover:bg-gray-700 hover:-translate-y-2"
-          >
-            <h2 className="text-green-400 text-lg font-bold mb-4">{section.title}</h2>
-            {section.links.map((link, i) => (
-              <a key={i} href={link.href} target="_blank" rel="noopener noreferrer">
-                <button 
-                  className="bg-green-500 text-white px-4 py-2 w-full rounded-md shadow-md transition-all 
-                             hover:bg-green-600 hover:scale-105 hover:shadow-lg my-2"
-                >
-                  {link.label}
-                </button>
-              </a>
-            ))}
-          </div>
-        ))}
-      </main>
-
-      <Footer />
+    <div>
+      <div className="relative overflow-hidden border-b border-neutral-900/70 bg-gradient-to-b from-black via-neutral-950 to-black">
+        <Section>
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mx-auto max-w-3xl text-center">
+            <Badge className="border-red-500/40 bg-red-500/10 text-red-400"><Zap className="h-3.5 w-3.5" /> เร็ว • ปลอดภัย • มืออาชีพ</Badge>
+            <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-white md:text-5xl">
+              ศูนย์ซ่อม–ปลดล็อกมือถือ & เครื่องมือซอฟต์แวร์ TKserviceTHL
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-300 md:text-lg">
+              รับซ่อมมือถือ/แท็บเล็ต ปลดล็อก FRP / MDM / iCloud และเครื่องมือซอฟต์แวร์สำหรับช่าง บริการครบ จบที่เดียว
+            </p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link href="/services"><PrimaryButton><Wrench className="h-4 w-4" /> ดูบริการ</PrimaryButton></Link>
+              <Link href="/downloads"><GhostButton><Download className="h-4 w-4" /> ดาวน์โหลดเครื่องมือ</GhostButton></Link>
+            </div>
+            <div className="mt-10 flex items-center justify-center gap-6 text-xs text-neutral-400">
+              <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4"/>งานมีรับประกัน</div>
+              <div className="flex items-center gap-2"><Headphones className="h-4 w-4"/>ซัพพอร์ตหลังการขาย</div>
+              <div className="flex items-center gap-2"><Cpu className="h-4 w-4"/>เครื่องมือพัฒนาเอง</div>
+            </div>
+          </motion.div>
+        </Section>
+      </div>
+      <Section>
+        <div className="grid gap-6 md:grid-cols-3">
+          <Link href="/services" className="tk-card p-6 hover:scale-[1.01] transition">
+            <h3 className="text-lg font-bold">บริการซ่อม/ปลดล็อก</h3>
+            <p className="mt-2 text-sm text-neutral-300">ฮาร์ดแวร์/ซอฟต์แวร์ ครบวงจร โปร่งใส มาตรฐานร้าน</p>
+          </Link>
+          <Link href="/downloads" className="tk-card p-6 hover:scale-[1.01] transition">
+            <h3 className="text-lg font-bold">ดาวน์โหลดโปรแกรม</h3>
+            <p className="mt-2 text-sm text-neutral-300">VAR Tool, Driver Fix, FRP Helper และอื่น ๆ</p>
+          </Link>
+          <Link href="/contact" className="tk-card p-6 hover:scale-[1.01] transition">
+            <h3 className="text-lg font-bold">ติดต่อเรา</h3>
+            <p className="mt-2 text-sm text-neutral-300">สอบถาม/ประเมินราคา นัดหมายคิวงาน</p>
+          </Link>
+        </div>
+      </Section>
     </div>
-  );
+  )
 }
-
-const sections = [
-  {
-    title: 'โปรแกรมพื้นฐาน',
-    links: [
-      { label: 'ดาวน์โหลด Ultraviewer', href: 'https://www.ultraviewer.net/th/UltraViewer_setup_6.6_th.exe' },
-      { label: 'ดาวน์โหลด UnlockTool', href: 'https://file.unlocktool.net/' },
-      { label: 'ดาวน์โหลด 3UTool', href: 'https://url2.3u.com/MNBBfyaa' },
-    ],
-  },
-  {
-    title: 'ปลดล็อกรหัส Android',
-    links: [
-      { label: 'Driver QC + MTK 2.0.1', href: 'https://driver-unlocktool.s3-hcm-r1.s3cloud.vn/Driver_Qualcomm_Mtk_2.0.1.zip' },
-      { label: 'Driver Huawei USB 1.0', href: 'https://driver-unlocktool.s3-hcm-r1.s3cloud.vn/Driver%20Huawei%20USB%201.0%20Kirin%20Flash%20Device%202.01.02.00.zip' },
-      { label: 'Driver SPD Spreadtrum', href: 'https://driver-unlocktool.s3-hcm-r1.s3cloud.vn/Driver_SPD_Spreadtrum_77xx.zip' },
-    ],
-  },
-  {
-    title: 'Bypass iPhone 5s - X',
-    links: [
-      { label: 'Ramdisk - iPhone', href: 'https://file.unlocktool.net/' },
-      { label: 'LPro Max V1.1 Windows', href: 'https://mega.nz/folder/R8By0ZiK#4YM_HLtYjq5d3lK-ot1pLg/file/1pIyGT5b' },
-      { label: 'Jailbreak iPhone + iPad', href: 'https://www.mediafire.com/file_premium/hy8dt11iakmkdnp/WinRa1n2.1_Jailbreak_iPhone_%252B_iPad.rar/file' },
-    ],
-  },
-];
